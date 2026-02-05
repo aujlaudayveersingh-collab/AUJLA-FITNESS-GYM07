@@ -85,6 +85,7 @@
             border: 2px solid #333;
             transition: var(--transition);
         }
+        .gallery-item:hover { border-color: var(--primary-red); transform: scale(1.02); }
         .gallery-item img {
             width: 100%; height: 100%; object-fit: cover; filter: grayscale(40%); transition: var(--transition);
         }
@@ -108,7 +109,7 @@
         .features-list li { margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative; }
         .features-list li::before { content: "✓"; position: absolute; left: 0; color: var(--primary-red); font-weight: bold; }
 
-        /* Registration Form Section */
+        /* Registration Form */
         #register { background: #111; }
         .form-container { max-width: 600px; margin: 0 auto; background: var(--card-bg); padding: 40px; border-radius: 15px; border: 1px solid #333; }
         .form-group { margin-bottom: 20px; text-align: left; }
@@ -116,7 +117,6 @@
         input, textarea {
             width: 100%; padding: 12px; background: #222; border: 1px solid #444; color: white; border-radius: 5px; font-family: inherit;
         }
-        input:focus { border-color: var(--primary-red); outline: none; }
 
         .btn {
             display: inline-block; padding: 1rem 2.5rem;
@@ -128,15 +128,15 @@
         }
         .btn:hover { box-shadow: 0 0 20px var(--primary-red); }
 
-        /* Chatbot STYLES (Keep existing) */
+        /* Chatbot STYLES */
         #chat-widget { position: fixed; bottom: 20px; right: 20px; z-index: 2000; font-family: 'Montserrat', sans-serif; }
-        #chat-button { background: var(--primary-red); color: white; border: none; padding: 15px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(230, 0, 0, 0.4); }
+        #chat-button { background: var(--primary-red); color: white; border: none; padding: 15px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; }
         #chat-window { display: none; width: 320px; background: #1a1a1a; border: 2px solid var(--primary-red); border-radius: 15px; flex-direction: column; overflow: hidden; position: absolute; bottom: 70px; right: 0; }
         #chat-header { background: var(--primary-red); color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; }
         #chat-body { height: 300px; padding: 15px; overflow-y: auto; color: white; font-size: 0.9rem; }
         .chat-msg { margin-bottom: 10px; padding: 8px 12px; border-radius: 10px; max-width: 85%; }
         .bot-msg { background: #333; align-self: flex-start; }
-        .user-msg { background: var(--primary-red); align-self: flex-end; margin-left: auto; text-align: right; }
+        .user-msg { background: var(--primary-red); align-self: flex-end; margin-left: auto; }
         .chat-options { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
         .opt-btn { background: transparent; border: 1px solid var(--primary-red); color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
 
@@ -154,10 +154,10 @@
         <div class="logo">AUJLA FITNESS</div>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#membership">Plans</a></li>
-                <li><a href="#register">Register</a></li>
-                <li><a href="#location">Location</a></li>
+                <li><a href="#home">Home (ਮੁੱਖ)</a></li>
+                <li><a href="#membership">Plans (ਪਲਾਨ)</a></li>
+                <li><a href="#register">Register (ਰਜਿਸਟ੍ਰੇਸ਼ਨ)</a></li>
+                <li><a href="#location">Location (ਪਤਾ)</a></li>
             </ul>
         </nav>
     </header>
@@ -166,43 +166,44 @@
         <div class="hero-content">
             <h1>AUJLA FITNESS GYM</h1>
             <p>TRAIN HARD. STAY STRONG. (ਸਖਤ ਮਿਹਨਤ ਕਰੋ। ਮਜ਼ਬੂਤ ਰਹੋ।)</p>
-            <a href="#gallery" class="btn" style="width: auto;">START TRAINING</a>
+            <p>TIMINGS: 5-7 AM & 4-8 PM (ਸਮਾਂ: ਸਵੇਰੇ 5-7 ਅਤੇ ਸ਼ਾਮ 4-8)</p>
+            <a href="#gallery" class="btn" style="width: auto;">START TRAINING (ਟ੍ਰੇਨਿੰਗ ਸ਼ੁਰੂ ਕਰੋ)</a>
         </div>
     </section>
 
     <section id="gallery">
-        <h2 class="section-title">THE <span>ARENA</span></h2>
+        <h2 class="section-title">THE <span>ARENA (ਅਖਾੜਾ)</span></h2>
         <div class="gallery-grid">
-            <div class="gallery-item"><img src="athletic-person-exercising-working-out.jpg" alt="Gym Photo 1"></div>
-            <div class="gallery-item"><img src="athletic-shirtless-young-male-fitness-model-holds-dumbbell-with-light-isolated-dark-background.jpg" alt="Gym Photo 2"></div>
-            <div class="gallery-item"><img src="strong-man-training-gym.jpg" alt="Gym Photo 3"></div>
+            <div class="gallery-item"><img src="athletic-person-exercising-working-out.jpg" alt="Gym"></div>
+            <div class="gallery-item"><img src="athletic-shirtless-young-male-fitness-model-holds-dumbbell-with-light-isolated-dark-background.jpg" alt="Gym"></div>
+            <div class="gallery-item"><img src="strong-man-training-gym.jpg" alt="Gym"></div>
         </div>
-        <a href="#membership" class="btn" style="width: 250px; margin: 0 auto; display: block;">NEXT: VIEW PLANS</a>
+        <a href="#membership" class="btn" style="width: 280px; margin: 0 auto; display: block;">NEXT: VIEW PLANS (ਪਲਾਨ ਦੇਖੋ)</a>
     </section>
 
     <section id="membership">
-        <h2 class="section-title">CHOOSE YOUR <span>PLAN</span></h2>
+        <h2 class="section-title">CHOOSE YOUR <span>PLAN (ਪਲਾਨ ਚੁਣੋ)</span></h2>
         <div class="membership-grid">
             <div class="card">
-                <h3>Mini Membership</h3>
+                <h3>Mini Membership (ਮਿੰਨੀ ਮੈਂਬਰਸ਼ਿਪ)</h3>
                 <div class="price">₹600</div>
                 <ul class="features-list">
                     <li>Dumbbells & Barbells</li>
                     <li>Manual Bench Press</li>
-                    <li>Squat Racks</li>
+                    <li>Squat Racks (ਸਕੁਐਟ ਰੈਕ)</li>
                 </ul>
-                <a href="#register" class="btn">SELECT PLAN</a>
+                <a href="#register" class="btn">SELECT PLAN (ਪਲਾਨ ਚੁਣੋ)</a>
             </div>
 
             <div class="card popular">
-                <h3>VIP Membership</h3>
+                <h3>VIP Membership (ਵੀਆਈਪੀ ਮੈਂਬਰਸ਼ਿਪ)</h3>
                 <div class="price">₹1000</div>
                 <ul class="features-list">
-                    <li><strong>All Electric Machines</strong></li>
-                    <li><strong>Motorized Treadmills</strong></li>
-                    <li>Dumbbells & Barbells</li>
+                    <li><strong>All Electric Machines (ਇਲੈਕਟ੍ਰਿਕ ਮਸ਼ੀਨਾਂ)</strong></li>
+                    <li><strong>Motorized Treadmills (ਟ੍ਰੈਡਮਿਲ)</strong></li>
+                    <li>Full Gym Access (ਪੂਰਾ ਜਿਮ)</li>
                 </ul>
-                <a href="#register" class="btn">SELECT PLAN</a>
+                <a href="#register" class="btn">SELECT PLAN (ਪਲਾਨ ਚੁਣੋ)</a>
             </div>
         </div>
     </section>
@@ -212,41 +213,45 @@
         <div class="form-container">
             <form id="regForm">
                 <div class="form-group">
-                    <label>Full Name (ਨਾਮ)</label>
-                    <input type="text" id="regName" placeholder="Enter your name" required>
+                    <label>Full Name (ਪੂਰਾ ਨਾਮ)</label>
+                    <input type="text" id="regName" placeholder="Enter name" required>
                 </div>
                 <div class="form-group">
                     <label>Phone Number (ਫੋਨ ਨੰਬਰ)</label>
-                    <input type="tel" id="regPhone" placeholder="Enter your mobile number" required>
+                    <input type="tel" id="regPhone" placeholder="Enter mobile number" required>
                 </div>
                 <div class="form-group">
-                    <label>Home Address (ਪਤਾ)</label>
-                    <textarea id="regAddress" rows="3" placeholder="Enter your full address" required></textarea>
+                    <label>Home Address (ਘਰ ਦਾ ਪਤਾ)</label>
+                    <textarea id="regAddress" rows="3" placeholder="Enter your address" required></textarea>
                 </div>
-                <button type="submit" class="btn">SUBMIT & JOIN VIA WHATSAPP</button>
+                <button type="submit" class="btn">JOIN VIA WHATSAPP (ਵਟਸਐਪ ਰਾਹੀਂ ਜੁਆਇਨ ਕਰੋ)</button>
             </form>
         </div>
     </section>
 
     <section id="location">
-        <h2 class="section-title">FIND <span>US</span></h2>
+        <h2 class="section-title">FIND <span>US (ਸਾਡਾ ਪਤਾ)</span></h2>
         <div style="text-align: center;">
-            <p>P845+G6Q, FatehGarh Niwan, Punjab 141411</p>
+            <p>FatehGarh Niwan, Punjab 141411</p>
+            <p><strong>Hours:</strong> 5-7 AM & 4-8 PM (ਸਮਾਂ: ਸਵੇਰੇ 5-7 ਅਤੇ ਸ਼ਾਮ 4-8)</p>
             <p><strong>Phone:</strong> +91 90415 20047</p><br>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3431.146030588647!2d76.30592492453538!3d30.70634169901443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e1a0038f93851%3A0x38931b3d082892b5!2sAUJLA%20FITNESS%20GYM!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <iframe src="https://maps.google.com/?cid=4076632036644262581&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
 
     <div id="chat-widget">
-        <button id="chat-button" onclick="toggleChat()">SUPPORT 💬</button>
+        <button id="chat-button" onclick="toggleChat()">SUPPORT (ਸਹਾਇਤਾ) 💬</button>
         <div id="chat-window">
-            <div id="chat-header"><span>AUJLA SUPPORT</span><span style="cursor:pointer" onclick="toggleChat()">✖</span></div>
+            <div id="chat-header">
+                <span>AUJLA SUPPORT</span>
+                <span style="cursor:pointer" onclick="toggleChat()">✖</span>
+            </div>
             <div id="chat-body">
-                <div class="chat-msg bot-msg">Welcome to Customer Care of Aujla Fitness Gym! How can I help you today?</div>
+                <div class="chat-msg bot-msg">Welcome to Customer Care of Aujla Fitness Gym! (ਔਜਲਾ ਫਿਟਨੈਸ ਜਿਮ ਦੇ ਕਸਟਮਰ ਕੇਅਰ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ!)</div>
                 <div class="chat-options">
-                    <button class="opt-btn" onclick="botReply('timing')">Gym Timings</button>
-                    <button class="opt-btn" onclick="botReply('price')">Membership Prices</button>
-                    <button class="opt-btn" onclick="botReply('location')">Location</button>
+                    <button class="opt-btn" onclick="botReply('timing')">Gym Timings (ਸਮਾਂ)</button>
+                    <button class="opt-btn" onclick="botReply('price')">Prices (ਫੀਸ)</button>
+                    <button class="opt-btn" onclick="botReply('location')">Location (ਪਤਾ)</button>
                 </div>
             </div>
         </div>
@@ -255,37 +260,31 @@
     <footer><p>Copyright © 2026 <span style="color:var(--primary-red)">Aujla Fitness Gym</span></p></footer>
 
     <script>
-        // Reveal Animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('appear'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('section').forEach(section => observer.observe(section));
 
-        // Registration Form WhatsApp logic
         document.getElementById('regForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const name = document.getElementById('regName').value;
-            const phone = document.getElementById('regPhone').value;
-            const address = document.getElementById('regAddress').value;
-            const message = `*New Gym Registration*%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Address:* ${address}`;
+            const message = `*New Registration*%0A*Name:* ${document.getElementById('regName').value}%0A*Phone:* ${document.getElementById('regPhone').value}%0A*Address:* ${document.getElementById('regAddress').value}`;
             window.open(`https://wa.me/919041520047?text=${message}`, '_blank');
         });
 
-        // Chatbot (Keep logic)
         function toggleChat() {
             const win = document.getElementById('chat-window');
             win.style.display = (win.style.display === 'flex') ? 'none' : 'flex';
         }
+
         function botReply(type) {
             const body = document.getElementById('chat-body');
             let botTxt = "";
-            if(type === 'timing') botTxt = "We are open Mon-Sat: 5-10 AM and 4-9 PM.";
+            if(type === 'timing') botTxt = "We are open 5:00 AM – 7:00 AM and 4:00 PM – 8:00 PM. (ਸਵੇਰੇ 5-7 ਅਤੇ ਸ਼ਾਮ 4-8)";
             else if(type === 'price') botTxt = "Mini: ₹600, VIP: ₹1000.";
-            else if(type === 'location') botTxt = "FatehGarh Niwan, Punjab.";
+            else if(type === 'location') botTxt = "We are in FatehGarh Niwan, Punjab. (ਫਤਿਹਗੜ੍ਹ ਨਿਵਾਨ, ਪੰਜਾਬ)";
             body.innerHTML += `<div class="chat-msg bot-msg">${botTxt}</div>`;
             body.scrollTop = body.scrollHeight;
         }
     </script>
 </body>
-        </html>
-                    
+</html>
