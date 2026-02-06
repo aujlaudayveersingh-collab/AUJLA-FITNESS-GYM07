@@ -50,7 +50,6 @@
         section.show { opacity: 1; transform: translateY(0); }
         .section-title { font-family: 'Bebas Neue'; font-size: clamp(2.5rem, 6vw, 5rem); text-align: center; margin-bottom: 20px; }
         .section-subtitle { text-align: center; color: #aaa; margin-bottom: 50px; font-size: 1.1rem; font-weight: 700; }
-        .section-title span { color: var(--primary-red); }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .card { background: var(--card-gradient); padding: 50px 30px; border-radius: 20px; border: 1px solid #222; text-align: center; transition: var(--transition); cursor: pointer; position: relative; }
@@ -67,26 +66,25 @@
 
         .map-container { width: 100%; height: 250px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1526721940322-10fb6e3ae94a?q=80&w=2071'); background-size: cover; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #333; }
 
-        /* ADMIN SECTION STYLES */
-        #adminSection { display: none; background: #0a0a0a; border-top: 5px solid var(--primary-red); padding-bottom: 50px; }
-        .admin-controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; justify-content: center; }
-        .admin-input { padding: 10px; background: #111; border: 1px solid #444; color: white; width: auto; flex: 1; min-width: 150px; margin-bottom: 0; }
-        .admin-btn { padding: 10px 20px; background: var(--primary-red); color: white; border: none; font-weight: bold; cursor: pointer; font-family: 'Bebas Neue'; font-size: 1.2rem; }
-        
-        .member-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; }
-        .member-table th, .member-table td { padding: 15px; text-align: left; border-bottom: 1px solid #333; }
-        .member-table th { background: #111; color: var(--primary-red); font-family: 'Bebas Neue'; letter-spacing: 1px; }
-        .action-btn { padding: 5px 10px; font-size: 0.8rem; cursor: pointer; border: none; border-radius: 3px; margin-right: 5px; }
-        .btn-del { background: #e60000; color: white; }
-        .btn-edit { background: #ff9900; color: black; }
-
-        .admin-toggle-btn {
-            background: #222; color: #555; border: none; padding: 10px 20px; 
-            font-size: 0.8rem; margin: 20px auto; display: block; cursor: pointer; 
-            font-family: 'Bebas Neue'; letter-spacing: 2px; transition: 0.3s;
+        /* CHATBOT STYLES */
+        #chat-container {
+            display: none; position: fixed; bottom: 20px; right: 20px; width: 320px; height: 450px;
+            background: #0a0a0a; border: 2px solid var(--primary-red); border-radius: 15px; z-index: 2000;
+            flex-direction: column; box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
-        .admin-toggle-btn:hover { color: var(--primary-red); }
+        .chat-header { background: var(--primary-red); padding: 15px; font-family: 'Bebas Neue'; display: flex; justify-content: space-between; align-items: center; border-radius: 12px 12px 0 0; }
+        #chat-messages { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .bot-msg { background: #1a1a1a; padding: 10px; border-radius: 10px; border-left: 3px solid var(--primary-red); align-self: flex-start; font-size: 0.85rem; max-width: 85%; }
+        .user-msg { background: #333; padding: 10px; border-radius: 10px; align-self: flex-end; font-size: 0.85rem; max-width: 85%; }
+        .chat-input-area { padding: 10px; display: flex; gap: 5px; border-top: 1px solid #222; }
+        .chat-input-area input { margin-bottom: 0; padding: 10px; font-size: 0.9rem; }
+        .chat-trigger { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; background: var(--primary-red); border: none; color: white; font-size: 1.5rem; cursor: pointer; z-index: 1999; box-shadow: 0 0 20px rgba(230,0,0,0.4); transition: 0.3s; }
+        .chat-trigger:hover { transform: scale(1.1); }
 
+        /* ADMIN SECTION */
+        #adminSection { display: none; background: #0a0a0a; border-top: 5px solid var(--primary-red); padding-bottom: 50px; }
+        .member-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .member-table th, .member-table td { padding: 15px; text-align: left; border-bottom: 1px solid #333; }
         footer { padding: 40px; text-align: center; color: #444; font-size: 0.8rem; }
     </style>
 </head>
@@ -95,28 +93,34 @@
     <div class="bg-glow"></div>
 
     <header>
-        <div class="logo">
-            AUJLA FITNESS
-            <span>(ਔਜਲਾ ਫਿਟਨੈਸ)</span>
-        </div>
+        <div class="logo">AUJLA FITNESS <span>(ਔਜਲਾ ਫਿਟਨੈਸ)</span></div>
     </header>
+
+    <button class="chat-trigger" onclick="toggleChat()"><i class="fa-solid fa-robot"></i></button>
+
+    <div id="chat-container">
+        <div class="chat-header">
+            <span>FITNESS ASSISTANT</span>
+            <i class="fa-solid fa-xmark" onclick="toggleChat()" style="cursor:pointer;"></i>
+        </div>
+        <div id="chat-messages"></div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Your answer...">
+            <button onclick="sendChat()" style="background:var(--primary-red); border:none; color:white; padding:0 15px; border-radius:5px; cursor:pointer;"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
 
     <section id="home" class="show">
         <div class="timer-box">
-            <p style="font-size: 0.7rem; letter-spacing: 2px; color: var(--primary-red); margin-bottom: 5px;">OFFER ENDS IN (ਆਫਰ ਜਲਦੀ ਖਤਮ ਹੋਵੇਗਾ):</p>
+            <p style="font-size: 0.7rem; letter-spacing: 2px; color: var(--primary-red); margin-bottom: 5px;">OFFER ENDS IN:</p>
             <div id="timer">00:00:00</div>
         </div>
-        <p>FatehGarh Niwan, Punjab 141411</p>
         <h1>REACH YOUR<br>LIMIT</h1>
-        <a href="#plans" class="hero-btn">
-            START TRAINING
-            <span class="btn-subtext">(ਟ੍ਰੇਨਿੰਗ ਸ਼ੁਰੂ ਕਰੋ)</span>
-        </a>
+        <a href="#plans" class="hero-btn">START TRAINING <span class="btn-subtext">(ਟ੍ਰੇਨਿੰਗ ਸ਼ੁਰੂ ਕਰੋ)</span></a>
     </section>
 
     <section id="plans">
         <h2 class="section-title">CHOOSE PLAN</h2>
-        <p class="section-subtitle">(ਆਪਣਾ ਪਲਾਨ ਚੁਣੋ)</p>
         <div class="grid">
             <div class="card" id="miniCard" onclick="pick('MINI', 'miniCard', event)">
                 <div class="discount-tag">LOCKED PRICE</div>
@@ -135,76 +139,49 @@
 
     <section id="register">
         <h2 class="section-title">JOIN NOW</h2>
-        <p class="section-subtitle">(ਹੁਣੇ ਸ਼ਾਮਲ ਹੋਵੋ)</p>
         <div class="form-box">
             <form id="gymForm">
                 <input type="text" id="displayPlan" value="SELECT A PLAN (ਪਲਾਨ ਚੁਣੋ)" readonly style="text-align:center; color:var(--primary-red); font-weight:900;">
                 <input type="text" id="uName" placeholder="YOUR NAME (ਤੁਹਾਡਾ ਨਾਮ)" required>
                 <input type="text" id="uPlace" placeholder="YOUR PLACE (ਪਿੰਡ / ਸ਼ਹਿਰ)" required>
                 <input type="tel" id="uPhone" placeholder="PHONE NUMBER (ਫੋਨ ਨੰਬਰ)" required pattern="[0-9]{10}">
-                <button type="submit" class="submit-btn">
-                    JOIN ON WHATSAPP <i class="fa-brands fa-whatsapp"></i>
-                    <span class="btn-subtext" style="font-size:0.9rem; color:#fff;">(ਵਟਸਐਪ 'ਤੇ ਜੁੜੋ)</span>
-                </button>
+                <button type="submit" class="submit-btn">JOIN ON WHATSAPP <i class="fa-brands fa-whatsapp"></i></button>
             </form>
         </div>
     </section>
 
     <section id="location" style="text-align:center;">
         <h2 class="section-title">THE BASE</h2>
-        <p class="section-subtitle">(ਸਾਡਾ ਪਤਾ)</p>
         <div class="map-container" onclick="openMaps()">
             <h3 style="font-family: 'Bebas Neue'; font-size: 2rem;">TAP FOR MAP</h3>
-            <span style="font-size:1rem; color:#ddd; font-weight:700;">(ਨਕਸ਼ਾ ਦੇਖਣ ਲਈ ਦਬਾਓ)</span>
-            <p style="margin-top:10px; font-size:0.8rem;">AUJLA FITNESS GYM, FatehGarh Niwan, Punjab 141411</p>
         </div>
     </section>
 
-    <section id="adminSection" class="show">
-        <h2 class="section-title" style="margin-top:20px;">ADMIN DASHBOARD</h2>
-        <p class="section-subtitle">MANAGE MEMBERS</p>
-        
+    <section id="adminSection">
+        <h2 class="section-title">ADMIN DASHBOARD</h2>
         <div class="form-box" style="border: 1px solid var(--primary-red);">
-            <div class="admin-controls">
-                <input type="text" id="adminName" class="admin-input" placeholder="Name">
-                <input type="text" id="adminPlace" class="admin-input" placeholder="Place">
-                <select id="adminPlan" class="admin-input">
-                    <option value="MINI">MINI</option>
-                    <option value="VIP">VIP</option>
-                </select>
-                <input type="text" id="adminPhone" class="admin-input" placeholder="Phone">
-                <button onclick="addMember()" class="admin-btn">ADD MEMBER</button>
-            </div>
-            
             <div style="overflow-x:auto;">
                 <table class="member-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Place</th>
-                            <th>Plan</th>
-                            <th>Phone</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="memberList">
-                        </tbody>
+                    <thead><tr><th>Name</th><th>Place</th><th>Plan</th><th>Phone</th><th>Action</th></tr></thead>
+                    <tbody id="memberList"></tbody>
                 </table>
             </div>
         </div>
     </section>
 
     <footer>
-        <button class="admin-toggle-btn" onclick="unlockAdmin()">ADMIN POWER</button>
-        <p>© 2026 AUJLA FITNESS GYM | FatehGarh Niwan, Punjab</p>
+        <button class="admin-toggle-btn" onclick="unlockAdmin()" style="background:none; border:none; color:#222; cursor:pointer;">ADMIN</button>
+        <p>© 2026 AUJLA FITNESS GYM</p>
     </footer>
 
     <script>
+        // Scroll Reveal
         const observer = new IntersectionObserver(e => {
             e.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('show') });
         });
         document.querySelectorAll('section').forEach(s => observer.observe(s));
 
+        // Timer
         function startTimer() {
             let h = 23, m = 59, s = 59;
             setInterval(() => {
@@ -214,9 +191,73 @@
         }
         startTimer();
 
-        function openMaps() {
-            window.open('https://www.google.com/maps/search/AUJLA+FITNESS+GYM,+FatehGarh+Niwan,+Punjab+141411', '_blank');
+        // Chatbot Logic
+        let chatStep = 0;
+        let chatData = [];
+        const chatQuestions = [
+            "What is your full name? (ਤੁਹਾਡਾ ਪੂਰਾ ਨਾਮ?)",
+            "What is your current weight? (ਤੁਹਾਡਾ ਭਾਰ?)",
+            "What is your age? (ਤੁਹਾਡੀ ਉਮਰ?)",
+            "Main goal: Muscle gain or Weight loss? (ਮਾਸਪੇਸ਼ੀ ਵਧਾਉਣਾ ਜਾਂ ਭਾਰ ਘਟਾਉਣਾ?)",
+            "Any medical issues or injuries? (ਕੋਈ ਸੱਟ ਜਾਂ ਬਿਮਾਰੀ?)",
+            "Have you exercised before? (ਕੀ ਪਹਿਲਾਂ ਕਸਰਤ ਕੀਤੀ ਹੈ?)",
+            "What is your preferred gym time? (ਜਿਮ ਦਾ ਸਮਾਂ?)",
+            "Are you from FatehGarh or nearby? (ਤੁਹਾਡਾ ਪਿੰਡ/ਸ਼ਹਿਰ?)",
+            "Do you need a diet plan? (ਕੀ ਡਾਈਟ ਪਲਾਨ ਚਾਹੀਦਾ ਹੈ?)",
+            "Enter your phone number to finish. (ਆਪਣਾ ਫ਼ੋਨ ਨੰਬਰ ਦਰਜ ਕਰੋ)"
+        ];
+
+        function toggleChat() {
+            const chat = document.getElementById('chat-container');
+            chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
+            if(chat.style.display === 'flex' && chatStep === 0) askQuestion();
         }
+
+        function askQuestion() {
+            const box = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.className = 'bot-msg';
+            div.innerText = chatQuestions[chatStep];
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function sendChat() {
+            const input = document.getElementById('chat-input');
+            const val = input.value.trim();
+            if(!val) return;
+
+            const box = document.getElementById('chat-messages');
+            const userDiv = document.createElement('div');
+            userDiv.className = 'user-msg';
+            userDiv.innerText = val;
+            box.appendChild(userDiv);
+
+            chatData.push(`Q: ${chatQuestions[chatStep]} A: ${val}`);
+            input.value = "";
+            chatStep++;
+
+            if(chatStep < chatQuestions.length) {
+                setTimeout(askQuestion, 500);
+            } else {
+                const finalMsg = "Awesome! Click below to send details to Coach.";
+                const botDiv = document.createElement('div');
+                botDiv.className = 'bot-msg';
+                botDiv.innerHTML = `${finalMsg}<br><br><button onclick="whatsappChat()" style="background:#25d366; border:none; color:white; padding:10px; border-radius:5px; cursor:pointer; width:100%;">SEND TO COACH</button>`;
+                box.appendChild(botDiv);
+            }
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function whatsappChat() {
+            const text = encodeURIComponent("CHATBOT ENQUIRY:\n" + chatData.join("\n"));
+            window.open(`https://wa.me/919041520047?text=${text}`, '_blank');
+        }
+
+        document.getElementById('chat-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') sendChat(); });
+
+        // Original Functions
+        function openMaps() { window.open('https://www.google.com/maps', '_blank'); }
 
         let selectedPlan = "";
         function pick(plan, id, e) {
@@ -229,106 +270,14 @@
 
         document.getElementById('gymForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            if(!selectedPlan) return alert("Select a plan first!");
-            const name = document.getElementById('uName').value.toUpperCase();
-            const place = document.getElementById('uPlace').value.toUpperCase();
-            const contact = document.getElementById('uPhone').value;
-            const msg = `MY NAME IS ${name} I AM FROM ${place} THIS IS MY CONTACT ${contact}. I WANT TO JOIN THE ${selectedPlan} PLAN.`;
+            if(!selectedPlan) return alert("Select a plan!");
+            const msg = `NAME: ${document.getElementById('uName').value} | FROM: ${document.getElementById('uPlace').value} | PLAN: ${selectedPlan}`;
             window.open(`https://wa.me/919041520047?text=${encodeURIComponent(msg)}`, '_blank');
         });
 
-        // --- NEW ADMIN LOGIC ---
-
-        // 1. Unlock Function
         function unlockAdmin() {
-            const code = prompt("ENTER ADMIN SECURITY CODE:");
-            if (code === "AUJLAAHEMUDAY2311") {
-                const adminSec = document.getElementById('adminSection');
-                adminSec.style.display = "block";
-                adminSec.scrollIntoView({ behavior: 'smooth' });
-                loadMembers(); // Load data when logged in
-            } else {
-                alert("ACCESS DENIED (ਗਲਤ ਕੋਡ)");
-            }
-        }
-
-        // 2. Data Handling (Using LocalStorage so data stays after refresh)
-        function getMembers() {
-            const members = localStorage.getItem('gymMembers');
-            return members ? JSON.parse(members) : [];
-        }
-
-        function saveMembers(members) {
-            localStorage.setItem('gymMembers', JSON.stringify(members));
-            loadMembers();
-        }
-
-        // 3. Render Table
-        function loadMembers() {
-            const members = getMembers();
-            const tbody = document.getElementById('memberList');
-            tbody.innerHTML = "";
-
-            members.forEach((m, index) => {
-                const row = `
-                    <tr>
-                        <td>${m.name}</td>
-                        <td>${m.place}</td>
-                        <td><span style="color:${m.plan === 'VIP' ? '#e60000' : '#fff'}">${m.plan}</span></td>
-                        <td>${m.phone}</td>
-                        <td>
-                            <button class="action-btn btn-edit" onclick="editMember(${index})"><i class="fa-solid fa-pen"></i></button>
-                            <button class="action-btn btn-del" onclick="deleteMember(${index})"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `;
-                tbody.innerHTML += row;
-            });
-        }
-
-        // 4. Add Member
-        function addMember() {
-            const name = document.getElementById('adminName').value.toUpperCase();
-            const place = document.getElementById('adminPlace').value.toUpperCase();
-            const plan = document.getElementById('adminPlan').value;
-            const phone = document.getElementById('adminPhone').value;
-
-            if(!name || !place || !phone) {
-                alert("Please fill all details");
-                return;
-            }
-
-            const members = getMembers();
-            members.push({ name, place, plan, phone });
-            saveMembers(members);
-
-            // Clear inputs
-            document.getElementById('adminName').value = "";
-            document.getElementById('adminPlace').value = "";
-            document.getElementById('adminPhone').value = "";
-        }
-
-        // 5. Delete Member
-        function deleteMember(index) {
-            if(confirm("Are you sure you want to remove this member?")) {
-                const members = getMembers();
-                members.splice(index, 1);
-                saveMembers(members);
-            }
-        }
-
-        // 6. Edit Member
-        function editMember(index) {
-            const members = getMembers();
-            const m = members[index];
-            
-            const newName = prompt("Edit Name:", m.name);
-            const newPlace = prompt("Edit Place:", m.place);
-            const newPhone = prompt("Edit Phone:", m.phone);
-            
-            if(newName && newPlace && newPhone) {
-                members[index] = { ...m, name: newName.toUpperCase(), place: newPlace.toUpperCase(), phone: newPhone };
-                saveMembers(members);
+            if (prompt("CODE:") === "AUJLAAHEMUDAY2311") {
+                document.getElementById('adminSection').style.display = "block";
             }
         }
     </script>
